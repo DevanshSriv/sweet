@@ -1,0 +1,110 @@
+.midCard{
+display: flex;
+align-items: center;
+justify-content: space-evenly;
+width: 95vw;
+margin-top: 5%;
+margin-bottom: 5%;
+}
+
+.img img{
+    border-radius: 50%;
+    cursor: pointer;
+}
+.img img:hover{
+    transform: scale3d(1.1,1.1,1.1);
+    box-shadow: 5px 5px 4px black;
+    transition: all 0.2s ease-in;
+}
+.kri{
+    width:20vw;
+    
+}
+.haha{
+    position: sticky;
+}
+/* .speech-bubble { */
+	/* position: relative; */
+	/* background: black;
+	border-radius: .4em;
+}
+
+.speech-bubble:after {
+	content: '';
+	position: relative;
+	left: 0;
+	top: 50%;
+	width: 0;
+	height: 0;
+	border: 51px solid transparent;
+	border-right-color: black;
+	border-left: 0;
+	border-top: 0;
+	margin-top: -25.5px;
+	margin-left: -51px;
+} */
+
+.box{
+    height: 30vw;
+    width: 30vw;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.box > img{
+    width: 70%;
+    height: 100%;
+}
+.box > h2:after{
+    content: '';
+	position: absolute;
+	left: 0;
+	top: 50%;
+	width: 0;
+	height: 0;
+	border: 31px solid transparent;
+	border-right-color: rgba(0, 0, 0, 0.349);
+	border-left: 0;
+	border-top: 0;
+	margin-top: -25.5px;
+	margin-left: -31px;
+}
+.box > h2{
+    /* background-color: black;
+    color: white;
+    padding-left: 5%;
+    padding-right: 2%;
+    font-size: 2vw;
+    border-bottom-right-radius: 5px;
+    border-radius: .4em; */
+    background-color: rgba(0, 0, 0, 0.349);
+    position: relative;
+    top :-20%;
+    left: -10%;
+    border:solid;
+    border-radius: .4em;
+    padding:5% 0; 
+    color: white;
+    
+}
+@media (prefers-reduced-motion: no-preference) {
+    .Midcard{
+      animation: Midcard-beat infinite 1.9s linear;
+      
+    }
+  }
+  
+  @keyframes Midcard-beat {
+    0% {
+      transform:scale3d(1.0,1.0,1.0);
+    }
+    50% {
+      transform: scale3d(1.2,1.2,1.2);
+    }
+    100%{
+        transform:scale3d(1.0,1.0,1.0);
+    }
+  }
+  

@@ -1,0 +1,56 @@
+.cartTable{
+    width:80vw;
+    
+    background-color: rgba(255, 255, 255, 0.39);
+    position: absolute;
+    top:15vw;
+    border-collapse: collapse;
+    height: 70vh;
+    overflow-y: scroll;
+}
+.head{
+    position: sticky;
+    top: 5%;
+    color: antiquewhite;
+    background-color: rgba(0, 0, 0, 0.486);
+    
+}
+.head > h1{
+    font-weight: bold;
+}
+  
+table > tbody > tr > th{
+    width: 11vw;
+   text-align: center; 
+   background-color: yellow;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    
+   
+}
+table > tbody > tr> td{
+    width:11vw;
+    text-align: center;
+    border: 1px solid black;
+    font-weight: 600;
+}
+table > tbody > tr:hover{
+    background-color: wheat;
+
+}
+.quanB{
+    margin-left: 8%;
+    margin-right: 8%;
+    width: 2vw;
+    border-radius: 20px;
+    background-color: yellow;
+    color: black;
+    font-weight: 500;
+    font-size: larger;
+}
+.quanB:hover{
+    background-color: red;
+    color:white;
+    transform: scale3d(1.2,1.2,1.2);
+}
