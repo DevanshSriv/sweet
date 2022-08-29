@@ -107,11 +107,11 @@
   border: 1px solid grey;
 }
 .count1{
-  color: red;
+  color: white;
   position: relative;
-  top:1vh;
+  top:3vh;
   right:50%;
-  
+  font-size: 3vw;
 }
 #Navbag{
   position: absolute;
@@ -154,9 +154,9 @@
   transform: rotateY(180deg);
 }
 .count{
-  color: red;
+  color: white;
   position: relative;
-  
+  font-size: 5vw;
   /* z-index: 2; */
   left:12%;
 }

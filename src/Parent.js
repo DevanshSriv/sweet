@@ -15,7 +15,7 @@ const Parent = (props) => {
     const [beg,setBeg]=useState(0)
     const [end,setEnd]=useState(10)
     const [cardFilter,setCardFilter]=useState('')
-
+    const [openConf,setOpenConf]=useState(false)
   return (
     <Context.Provider value={{
         cart:[cart,setCart],
@@ -30,7 +30,8 @@ const Parent = (props) => {
         start:[beg,setBeg],
         end:[end,setEnd],
         cardFilter:[cardFilter,setCardFilter],
-        windowU:[windowurl,setWindowUrl]
+        windowU:[windowurl,setWindowUrl],
+        openConf:[openConf,setOpenConf]
     }}>
         {props.children}
     </Context.Provider>

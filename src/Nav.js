@@ -1,4 +1,4 @@
-import { Button, Input, Tooltip } from '@mui/material'
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Input, Tooltip } from '@mui/material'
 import React, { useContext, useEffect, useState } from 'react'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -18,6 +18,8 @@ import products from './Data';
 import "./table.css"
 import DeleteIcon from '@mui/icons-material/Delete';
 import ShoppingCartCheckoutSharpIcon from '@mui/icons-material/ShoppingCartCheckoutSharp';
+import { DeleteForeverRounded } from '@mui/icons-material';
+import { Close } from '@mui/icons-material';
 const Nav = () => {
    const Cont=useContext(Context)
    const [cat,setCat]=useState([])
@@ -28,6 +30,9 @@ const Nav = () => {
    const [severity1,setSeverity1]=useState('')
    const [error1,setError1]=useState('')
    const [openDraw,setOpenDraw]=useState(false)
+   const [remID,setRemmID]=useState('')
+   const [dialogText,setDialogText]=useState('')
+   const [dialogTitle,setDialogTitl]=useState('')
    let temp=products
    const style = {
     position: 'absolute',
@@ -173,12 +178,20 @@ document.getElementById('searchInput').focus()
 
        // deleting prodeuct below
 
-       const removeProd=(e)=>{
-         let id=e.target.id
+       const removeProd=()=>{
+        
+         if(remID!=0){
+          let id=remID
+          
          let temp=Cont.cart[0]
          let newAr=temp.filter(items=> items.id!=id)
          Cont.cart[1](newAr)
-
+        }
+        if(remID=='empty'){
+          let newAr=[]
+          Cont.cart[1](newAr)
+        }
+         Cont.openConf[1](false)
        }
        // editing quantity below
        const editQuan=(e)=>{
@@ -249,13 +262,13 @@ document.getElementById('searchInput').focus()
         </div>
         <div className='menuicon'>
         
-        <p id='Navbag'><ShoppingBag onClick={()=>{setOpenDraw(true)}} sx={{fontSize:'6vw'}}/><span className='count1'>{count}</span></p>
+        <p id='Navbag' onClick={()=>{setOpenDraw(true)}}><ShoppingBag onClick={()=>{setOpenDraw(true)}} sx={{fontSize:'6vw'}}/><span className='count1'>{count}</span></p>
             
             <div className='menu'>
             {Cont.drawer[0]==true? <MenuOpenIcon sx={{fontSize:'5vw'}} />:<MenuIcon onClick={()=>{Cont.drawer[1](true)}} sx={{fontSize:'5vw'}}/>}
             </div>
             <div id='tabButton' >
-            {window.location.href.includes('home')?<Button variant='outlined' onClick={()=>{nav('/')}}>Home</Button>:<Button variant='outlined' onClick={()=>{nav('/home')}}>All</Button>}
+            {window.location.href.includes('home')?<Button variant='outlined' onClick={()=>{nav('/')}}>Home</Button>:<Button variant='outlined' sx={{fontSize:'1.5vw',padding:'0'}} onClick={()=>{nav('/home')}}>All Items</Button>}
             </div>
         </div>
         
@@ -354,9 +367,12 @@ document.getElementById('searchInput').focus()
             </h2></div>
            <Box sx={{display:'flex',flexDirection:'column',justifyContent:'space-evenly' ,height:'100vh',alignItems:'center'}} >
            
-            <Button variant='contained' color='error' sx={{position:'absolute',top:'2%',left:'5%'}} onClick={()=>{setOpenDraw(false)}}>&times;</Button>
+            <Button variant='contained' color='error' sx={{position:'absolute',top:'2%',left:'5%',fontSize:'2vw'}} onClick={()=>{setOpenDraw(false)}}><Close/></Button>
 
-            {Cont.cart[0].length>0 ? <Button variant='contained'  color='success' sx={{position:'absolute',top:'2%',left:'20%'}} onClick={checkout}><ShoppingCartCheckoutSharpIcon/></Button>:<></>}
+            
+
+
+            {Cont.cart[0].length>0 ? <><Button variant='contained'  color='success' sx={{position:'absolute',top:'2%',right:'10%',fontSize:'2vw'}} onClick={checkout}><ShoppingCartCheckoutSharpIcon/></Button><Button variant='contained' color='error' sx={{position:'absolute',top:'2%',left:'20%'}} id='empty' onClick={(e)=>{setRemmID(e.target.id);setDialogTitl('Empty Cart');setDialogText('Caution Your Cart Will Be Emptied');Cont.openConf[1](true)}}><DeleteForeverRounded sx={{fontSize:'3vw'}} id='empty' onClick={(e)=>{setRemmID(e.target.id);setDialogTitl('Empty Cart');setDialogText('Caution Your Cart Will Be Emptied');Cont.openConf[1](true)}}/></Button></>:<></>}
             
             {Cont.cart[0].length!=0?<div className='cartTable'>
               <table >
@@ -377,7 +393,7 @@ document.getElementById('searchInput').focus()
                   <td>&#8377; {items.price}</td>
                   <td id={items.id}><button type='button'className='quanB' id='-' onClick={editQuan}>&#x2212;</button>{items.quan}<button type='button'className='quanB' id='+' onClick={editQuan}>&#43;</button></td>
                   <td>&#8377; {items.price*items.quan}</td>
-                  <td><Button variant='contained' color='error' sx={{fontSize:'20px',borderRadius:'20px'}} onClick={removeProd} id={items.id}><DeleteIcon onClick={removeProd} id={items.id}/></Button></td>
+                  <td><Button variant='contained' color='error' sx={{fontSize:'20px',borderRadius:'20px'}} onClick={(e)=>{Cont.openConf[1](true);setRemmID(e.target.id);setDialogText('Are You Sure to Delete This Item');setDialogTitl('Remove Product')}} id={items.id}><DeleteIcon onClick={(e)=>{Cont.openConf[1](true);setRemmID(e.target.id);setDialogText('Are You Sure to Delete This Item');setDialogTitl('Remove Product')}} id={items.id}/></Button></td>
                 </tr>)}
               </tbody>
             </table>
@@ -387,6 +403,29 @@ document.getElementById('searchInput').focus()
            </Box>
            </>
           </Drawer>
+
+          <Dialog
+        open={Cont.openConf[0]}
+        onClose={()=>{Cont.openConf[1](false)}}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+        
+      >
+        <DialogTitle id="alert-dialog-title">
+          {dialogTitle}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            {dialogText}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button variant='contained' onClick={()=>{Cont.openConf[1](false)}}>Cancel</Button>
+          <Button variant='contained' color='error' onClick={removeProd}autoFocus>
+            Delete
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   )
 }
